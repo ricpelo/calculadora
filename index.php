@@ -25,6 +25,15 @@
             case '+':
                 $res = $op1 + $op2;
                 break;
+            case '-':
+                $res = $op1 - $op2;
+                break;
+            case '*':
+                $res = $op1 * $op2;
+                break;
+            case '/':
+                $res = $op1 / $op2;
+                break;
         }
         ?>
         <h3>Resultado: <?= $res ?></h3>
