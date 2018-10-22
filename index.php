@@ -6,6 +6,14 @@
     </head>
     <body>
         <?php
+
+        const OP = ['+', '-', '*', '/'];
+
+        function selected($op1, $op2)
+        {
+            return $op1 == $op2 ? "selected" : "";
+        }
+
         $op1 = isset($_GET['op1']) ? trim($_GET['op1']) : '0';
         $op2 = isset($_GET['op2']) ? trim($_GET['op2']) : '0';
         $op  = isset($_GET['op'])  ? trim($_GET['op'])  : '+';
@@ -17,7 +25,13 @@
             <label for="op2">Segundo operando:</label>
             <input id="op2" type="text" name="op2" value="<?= $op2 ?>"><br/>
             <label for="op">Operación:</label>
-            <input id="op" type="text" name="op" value="<?= $op ?>"><br/>
+            <select name="op">
+                <?php foreach (OP as $o): ?>
+                    <option value="<?= $o ?>" <?= selected($op, $o) ?> >
+                        <?= $o ?>
+                    </option>
+                <?php endforeach ?>
+            </select><br/>
             <input type="submit" value="Calcular">
         </form>
         <?php
