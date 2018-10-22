@@ -6,14 +6,10 @@
     </head>
     <body>
         <?php
+        require 'auxiliar.php';
 
         const OP = ['+', '-', '*', '/'];
         const PAR = ['op', 'op1', 'op2'];
-
-        function selected($op1, $op2)
-        {
-            return $op1 == $op2 ? "selected" : "";
-        }
 
         $op1 = $op2 = $op = null;
         $error = [];
@@ -33,8 +29,6 @@
             $error[] = "Los parámetros recibidos no son los correctos.";
         }
 
-        $res = '';
-
         if (empty($error)) {
             // Comprobación de valores:
             if (!is_numeric($op1)) {
@@ -47,26 +41,11 @@
                 $error[] = "El operador no es válido.";
             }
         }
-        ?>
 
-        <form action="" method="get">
-            <label for="op1">Primer operando *:</label>
-            <input id="op1" type="text" name="op1" value="<?= $op1 ?>"><br/>
-            <label for="op2">Segundo operando *:</label>
-            <input id="op2" type="text" name="op2" value="<?= $op2 ?>"><br/>
-            <label for="op">Operación *:</label>
-            <select name="op">
-                <?php foreach (OP as $o): ?>
-                    <option value="<?= $o ?>" <?= selected($op, $o) ?> >
-                        <?= $o ?>
-                    </option>
-                <?php endforeach ?>
-            </select><br/>
-            <input type="submit" value="Calcular">
-        </form>
+        formulario($op1, $op2, $op, OP);
 
-        <?php if (empty($error)): ?>
-            <?php
+        if (empty($error)):
+            $res = '';
             switch ($op) {
                 case '+':
                     $res = $op1 + $op2;
@@ -83,10 +62,10 @@
             }
             ?>
             <h3>Resultado: <?= $res ?></h3>
-        <?php else: ?>
-            <?php foreach ($error as $err): ?>
+        <?php else:
+            foreach ($error as $err): ?>
                 <h3>Error: <?= $err ?></h3>
-            <?php endforeach ?>
-        <?php endif ?>
+            <?php endforeach;
+        endif ?>
     </body>
 </html>
