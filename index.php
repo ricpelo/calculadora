@@ -17,6 +17,7 @@
         // Comprobación de parámetros:
         $par = array_keys($_GET);
         sort($par);
+
         if (empty($_GET)) {
             $op1 = '0';
             $op2 = '0';
@@ -44,24 +45,8 @@
 
         formulario($op1, $op2, $op, OP);
 
-        if (empty($error)):
-            $res = '';
-            switch ($op) {
-                case '+':
-                    $res = $op1 + $op2;
-                    break;
-                case '-':
-                    $res = $op1 - $op2;
-                    break;
-                case '*':
-                    $res = $op1 * $op2;
-                    break;
-                case '/':
-                    $res = $op1 / $op2;
-                    break;
-            }
-            ?>
-            <h3>Resultado: <?= $res ?></h3>
+        if (empty($error)): ?>
+            <h3>Resultado: <?= calcula($op1, $op2, $op) ?></h3>
         <?php else:
             foreach ($error as $err): ?>
                 <h3>Error: <?= $err ?></h3>
