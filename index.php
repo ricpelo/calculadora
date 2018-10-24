@@ -11,40 +11,22 @@
         const OP = ['+', '-', '*', '/'];
         const PAR = ['op' => '+', 'op1' => '0', 'op2' => '0'];
 
-        extract(PAR);
         $error = [];
 
         // Comprobación de parámetros:
-        if (!empty($_GET)) {
-            if (empty(array_diff_key($_GET, PAR)) &&
-                empty(array_diff_key(PAR, $_GET))) {
-                extract(array_map('trim', $_GET));
-            } else {
-                $error[] = "Los parámetros recibidos no son los correctos.";
-            }
-        }
+        extract(compruebaParametros(PAR, $error));
 
+        // Comprobación de valores:
         if (empty($error)) {
-            // Comprobación de valores:
-            if (!is_numeric($op1)) {
-                $error[] = "El primer operando no es un número.";
-            }
-            if (!is_numeric($op2)) {
-                $error[] = "El segundo operando no es un número.";
-            }
-            if (!in_array($op, OP)) {
-                $error[] = "El operador no es válido.";
-            }
+            compruebaValores($op1, $op2, $op, OP, $error);
         }
 
         formulario($op1, $op2, $op, OP);
 
-        if (empty($error)): ?>
-            <h3>Resultado: <?= calcula($op1, $op2, $op) ?></h3>
-        <?php else:
-            foreach ($error as $err): ?>
-                <h3>Error: <?= $err ?></h3>
-            <?php endforeach;
-        endif ?>
+        if (empty($error)) {
+            mostrarResultado($op1, $op2, $op);
+        } else {
+            muestraErrores($error);
+        } ?>
     </body>
 </html>
