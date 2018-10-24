@@ -1,12 +1,43 @@
 <?php
 
+function compruebaParametros($par, &$error)
+{
+    if (!empty($_GET)) {
+        if (empty(array_diff_key($_GET, $par)) &&
+            empty(array_diff_key($par, $_GET))) {
+            return array_map('trim', $_GET);
+        } else {
+            $error[] = "Los parámetros recibidos no son los correctos.";
+        }
+    }
+    return $par;
+}
+
+
+function compruebaValores($valores, $ops, &$error)
+{
+    extract($valores);
+
+    // Comprobación de valores:
+    if (!is_numeric($op1)) {
+        $error[] = "El primer operando no es un número.";
+    }
+    if (!is_numeric($op2)) {
+        $error[] = "El segundo operando no es un número.";
+    }
+    if (!in_array($op, $ops)) {
+        $error[] = "El operador no es válido.";
+    }
+}
+
 function selected($op1, $op2)
 {
     return $op1 == $op2 ? "selected" : "";
 }
 
-function formulario($op1, $op2, $op, $ops)
+function formulario($valores, $ops)
 {
+    extract($valores);
 ?>
     <form action="" method="get">
         <label for="op1">Primer operando *:</label>
@@ -26,8 +57,10 @@ function formulario($op1, $op2, $op, $ops)
 <?php
 }
 
-function calcula($op1, $op2, $op)
+function calcula($valores)
 {
+    extract($valores);
+
     switch ($op) {
         case '+':
             $res = $op1 + $op2;
