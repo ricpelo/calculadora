@@ -11,17 +11,17 @@
         const OP = ['+', '-', '*', '/'];
         const PAR = ['op' => '+', 'op1' => '0', 'op2' => '0'];
 
-        $op1 = $op2 = $op = null;
+        extract(PAR);
         $error = [];
 
         // Comprobación de parámetros:
-        if (empty($_GET)) {
-            extract(PAR);
-        } elseif (empty(array_diff_key($_GET, PAR)) &&
-                  empty(array_diff_key(PAR, $_GET))) {
-            extract(array_map('trim', $_GET), EXTR_IF_EXISTS);
-        } else {
-            $error[] = "Los parámetros recibidos no son los correctos.";
+        if (!empty($_GET)) {
+            if (empty(array_diff_key($_GET, PAR)) &&
+                empty(array_diff_key(PAR, $_GET))) {
+                extract(array_map('trim', $_GET));
+            } else {
+                $error[] = "Los parámetros recibidos no son los correctos.";
+            }
         }
 
         if (empty($error)) {
