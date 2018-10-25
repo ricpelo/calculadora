@@ -1,5 +1,12 @@
 <?php
 
+function compruebaErrores($error)
+{
+    if (!empty($error)) {
+        throw new Exception;
+    }
+}
+
 function muestraErrores($error)
 {
     foreach ($error as $err): ?>
@@ -37,6 +44,7 @@ function compruebaValores($op1, $op2, $op, $ops, &$error)
     if (!in_array($op, $ops)) {
         $error[] = "El operador no es válido.";
     }
+    compruebaErrores($error);
 }
 
 function selected($op1, $op2)
