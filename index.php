@@ -15,10 +15,10 @@
 
         try {
             extract(compruebaParametros(PAR, $error));
-            formulario($op1, $op2, $op, OP);
+            dibujaFormulario($op1, $op2, $op, OP);
             compruebaErrores($error);
             compruebaValores($op1, $op2, $op, OP, $error);
-            mostrarResultado($op1, $op2, $op);
+            muestraResultado($op1, $op2, $op);
         } catch (Exception $e) {
             muestraErrores($error);
         }

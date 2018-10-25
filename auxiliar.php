@@ -14,7 +14,7 @@ function muestraErrores($error)
     <?php endforeach;
 }
 
-function mostrarResultado($op1, $op2, $op)
+function muestraResultado($op1, $op2, $op)
 { ?>
     <h3>Resultado: <?= calcula($op1, $op2, $op) ?></h3>
 <?php
@@ -52,7 +52,7 @@ function selected($op1, $op2)
     return $op1 == $op2 ? "selected" : "";
 }
 
-function formulario($op1, $op2, $op, $ops)
+function dibujaFormulario($op1, $op2, $op, $ops)
 {
 ?>
     <form action="" method="get">
